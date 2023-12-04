@@ -54,6 +54,7 @@ server {
         proxy_pass http://127.0.0.1:5000;
     }
 }
+```
 
 ## Step 5: Enable Nginx Site
 ```bash

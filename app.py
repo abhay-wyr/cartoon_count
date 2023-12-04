@@ -1,7 +1,8 @@
 import os
 import cv2
 import base64
-import supervision as sv
+import cloudinary
+from cloudinary.uploader import upload
 from ultralytics import YOLO
 from flask import Flask, request, jsonify
 
@@ -13,6 +14,13 @@ weights_path = os.path.join(project_dir, "weights/best.pt")
 
 # Enable CORS for all origins
 model = YOLO(weights_path)
+
+# Cloudinary configuration
+cloudinary.config(
+    cloud_name="dkotav2ow",
+    api_key="427621935679874",
+    api_secret="gBF6PQfsGPEPzXpAoeLKjo8aFRE"
+)
 
 # ... Your existing code ...
 
@@ -28,6 +36,10 @@ def decodeString(string):
 
     # Returning the path of the saved file
     return savePath
+
+# Uploads image to Cloudinary
+def uploadToCloudinary(image_path, public_id):
+    cloudinary.uploader.upload(image_path, public_id=public_id)
 
 # Encodes the image into base64 string
 def encodeString(result):
@@ -71,6 +83,8 @@ def cartonCounter():
 
         # Getting Image Saved Path from Base64 String
         savePath = decodeString(base64String)
+        # Upload the image to Cloudinary
+        uploadToCloudinary(savePath, public_id="uploaded_image")
         # Getting Model Results
         results = getInference(savePath)
         # Getting Annotated Image

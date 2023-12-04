@@ -10,24 +10,25 @@ Connect to your EC2 instance and install the required dependencies:
 sudo apt update
 sudo apt install python3 python3-pip
 pip3 install Flask gunicorn
-
+```
 ## Step 2: Run Flask App with Gunicorn
 
 ```bash
 cd /home/ubuntu/cartoon_count
 gunicorn -w 4 -b 0.0.0.0:5000 app:app
-
+```
 ## Step 3: Install Nginx
 
 ```bash
 sudo apt install nginx
-
+```
 
 ## Step 4: Configure Nginx
 ```bash
 sudo nano /etc/nginx/sites-available/cartoon_count
-### Add the following configuration:
+```
 
+### Add the following configuration:
 ```bash
 server {
     listen 80;
@@ -57,11 +58,12 @@ server {
 ## Step 5: Enable Nginx Site
 ```bash
 sudo ln -s /etc/nginx/sites-available/cartoon_count /etc/nginx/sites-enabled
+```
 
 ## Step 6: Restart Nginx
 ```bash
 sudo service nginx restart
-
+```
 
 
 
